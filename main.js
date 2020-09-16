@@ -1,31 +1,116 @@
-import { Brooks, Component, render } from './toy-react.js'
+import { Brooks, Component, render } from './toy-react'
 
-// ------------------------------------------------------
+// // ------------------------------------------------------
 
-// const func = a => '' + a
+// // const func = a => '' + a
 
-// console.log(func(100))
+// // console.log(func(100))
 
-// window.func = func
+// // window.func = func
 
-// ------------------------------------------------------
+// // ------------------------------------------------------
 
-class Winter extends Component {
+// class Winter extends Component {
+//   constructor() {
+//     super()
+//     this.state = {
+//       a: 1,
+//       b: 2
+//     }
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         {this.childrend}
+//         <br/>
+//         <button onclick={() => {this.setState({a: this.state.a + 1})}}>click</button>
+//         <span>{this.state.a.toString()}</span>
+//       </div>
+//     )
+//   }
+// }
+
+// window.ele = (
+//   <Winter class="box" id="toy">
+//     <span class="redText">hello</span>
+//     <br/>
+//     <a>Winter</a>
+//   </Winter>
+// )
+
+// render(ele, document.body)
+
+class Square extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: null,
+    };
+  }
+
   render() {
     return (
-      <div>
-        {this.childrend}
-      </div>
-    )
+      <button
+        className="square"
+        onClick={() => this.setState({value: 'X'})}
+      >
+        {this.state.value}
+      </button>
+    );
   }
 }
 
-window.ele = (
-  <Winter class="box" id="toy">
-    <span class="redText">hello</span>
-    <br/>
-    <a>Winter</a>
-  </Winter>
-)
+class Board extends Component {
+  renderSquare(i) {
+    return <Square />;
+  }
 
-render(ele, document.body)
+  render() {
+    const status = 'Next player: X';
+
+    return (
+      <div>
+        <div className="status">{status}</div>
+        <div className="board-row">
+          {this.renderSquare(0)}
+          {this.renderSquare(1)}
+          {this.renderSquare(2)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(3)}
+          {this.renderSquare(4)}
+          {this.renderSquare(5)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(6)}
+          {this.renderSquare(7)}
+          {this.renderSquare(8)}
+        </div>
+      </div>
+    );
+  }
+}
+
+class Game extends Component {
+  render() {
+    return (
+      <div className="game">
+        <div className="game-board">
+          <Board />
+        </div>
+        <div className="game-info">
+          <div>{/* status */}</div>
+          <ol>{/* TODO */}</ol>
+        </div>
+      </div>
+    );
+  }
+}
+
+// ========================================
+
+render(
+  <Game />,
+  document.getElementById('root')
+);
